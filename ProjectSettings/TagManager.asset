@@ -15,6 +15,7 @@ TagManager:
   - Border
   - Limit
   - GuideIcon
+  - Fruit
   layers:
   - Default
   - TransparentFX

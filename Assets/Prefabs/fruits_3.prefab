@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3666565785184153452}
   - component: {fileID: 2252361564170685027}
   - component: {fileID: 8407631396697330179}
-  - component: {fileID: -5494734853420946934}
+  - component: {fileID: 8874010312314002157}
   m_Layer: 0
   m_Name: fruits_3
-  m_TagString: 3
+  m_TagString: Fruit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,7 +173,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -185,7 +185,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-5494734853420946934
+--- !u!114 &8874010312314002157
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,8 +194,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 9042844212437975151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b62dfb19e0a4114eb6fb95202fc1630, type: 3}
+  m_Script: {fileID: 11500000, guid: 390bc26631ba4b944ae340519551cf21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreValue: 20
-  gameManager: {fileID: 8573659312998508294, guid: 5121c03683bd03948969cdaed10d435a, type: 3}
+  moveCloud: {fileID: 0}
+  fruitIndex: 3
