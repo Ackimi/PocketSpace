@@ -11,7 +11,7 @@ public class GuideIcon : MonoBehaviour
 
     static public Vector2 spawnPos; //position of new fruit spawning
     static public string newFruit = "n"; //when there is a spawn, we change to "y" -> spawn fruit
-    bool isSpawning = false;
+    //bool isSpawning = false;
     
     static public int whichFruit = 0;
 
@@ -70,7 +70,7 @@ public class GuideIcon : MonoBehaviour
 	{
 		if (spawnedYet == "n")
 		{
-            isSpawning = true;
+            //isSpawning = true;
             spawnedYet = "w"; //w = "wait"
             StartCoroutine(spawntimer());            
             

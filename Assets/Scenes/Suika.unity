@@ -424,6 +424,7 @@ MonoBehaviour:
   - prefab: {fileID: 635447804747333781, guid: e4c318a4b25530944b97a387eb1c5e63, type: 3}
     points: 50
   scoreText: {fileID: 378328913}
+  scoreTextEND: {fileID: 4210560216212842591}
   currentScore: 0
   sideGapForBiggerFruits: 0.05
 --- !u!1 &305584394
@@ -4662,7 +4663,7 @@ PrefabInstance:
     - target: {fileID: 8573659312998508294, guid: 5121c03683bd03948969cdaed10d435a, type: 3}
       propertyPath: guideIcon
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 220193371}
     - target: {fileID: 8573659312998508294, guid: 5121c03683bd03948969cdaed10d435a, type: 3}
       propertyPath: gameOverUI
       value: 

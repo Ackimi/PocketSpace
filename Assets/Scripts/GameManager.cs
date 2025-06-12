@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     static public string retryCheck = "n";
 
-    public GuideIcon guideIcon;
+    public MoveCloud guideIcon;
 
 	private void Start()
 	{
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         pressEscapeUI.gameObject.SetActive(true);
         
 
-        guideIcon = GameObject.Find("Guide_Icon").GetComponent<GuideIcon>();
+        guideIcon = GameObject.Find("Guide_Icon").GetComponent<MoveCloud>();
             
     }
 
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         if (retryCheck == "y")
 		{
             yield return new WaitForSeconds(1f);
-            guideIcon.SpawnFruit();
+            guideIcon.LoadNextFruit();
         }
         
     }

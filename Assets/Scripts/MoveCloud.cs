@@ -22,7 +22,7 @@ public class MoveCloud : MonoBehaviour
 
     public static MoveCloud instance;
 
-    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreText, scoreTextEND;
     [SerializeField] private int currentScore = 0;
 
     private float defaultYPosition = 3.88f;
@@ -46,11 +46,11 @@ public class MoveCloud : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Q) && transform.position.x > currentMinXPosition)
         {
-            transform.position -= new Vector3(5 * Time.deltaTime, 0, 0);
+            transform.position -= new Vector3(movementSpeed * Time.deltaTime, 0, 0);
         }
         else if (Input.GetKey(KeyCode.D) && transform.position.x < currentMaxXPosition)
         {
-            transform.position += new Vector3(5 * Time.deltaTime, 0, 0);
+            transform.position += new Vector3(movementSpeed * Time.deltaTime, 0, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -67,7 +67,7 @@ public class MoveCloud : MonoBehaviour
         }
     }
 
-    void LoadNextFruit()
+    public void LoadNextFruit()
     {
         nextFruitIndex = Random.Range(0, 3);
         nextFruit = fruitsPrefabs[nextFruitIndex].prefab;

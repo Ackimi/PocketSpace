@@ -9,7 +9,7 @@ public class Fruits : MonoBehaviour
     static public string timeToCheck = "n";
     public int scoreValue;
 
-    private float _speed = .25f;
+    //private float _speed = .25f;
 
     //private Vector2 _spriteScale;
 
