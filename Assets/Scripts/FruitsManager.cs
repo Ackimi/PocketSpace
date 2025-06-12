@@ -22,7 +22,9 @@ public class FruitsManager : MonoBehaviour
 
 				print("Same Fruit!");
 
-				GameObject nextFruit = Instantiate(MoveCloud.instance.fruitsPrefabs[fruitIndex+1]);
+				GameObject nextFruit = Instantiate(MoveCloud.instance.fruitsPrefabs[fruitIndex+1].prefab);
+				MoveCloud.instance.IncreaseScore(MoveCloud.instance.fruitsPrefabs[fruitIndex + 1].points);
+
 				nextFruit.transform.position = transform.position;
 
 				gameObject.SetActive(false);

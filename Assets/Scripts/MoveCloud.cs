@@ -1,72 +1,116 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class MoveCloud : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 5f;
-    [SerializeField] private float minXPosition = -1.8f;
-    [SerializeField] private float maxXPosition = 1.8f;
+    [SerializeField] private float minXPosition = -2f;
+    [SerializeField] private float maxXPosition = 2f;
 
-    public GameObject[] fruitsPrefabs;
+    private float currentMinXPosition = 1.8f;
+    private float currentMaxXPosition = 2f;
 
-    [SerializeField] private GameObject nextFruit;
-    [SerializeField] private int nextFruitIndex;
+    public Transform guideIcon;
+
+    public FruitsList[] fruitsPrefabs;
+
+    private GameObject nextFruit;
+    private int nextFruitIndex;
 
     public static MoveCloud instance;
 
-	private void Awake()
-	{
-        instance = this;
-	}
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private int currentScore = 0;
 
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
-	void Start()
-    {        
-        nextFruitIndex = Random.Range(0, 3);
-        nextFruit = fruitsPrefabs[nextFruitIndex];
+    private float defaultYPosition = 3.88f;
+    [SerializeField] private float sideGapForBiggerFruits = 0.07f;
+
+    private void Awake()
+    {
+        instance = this;
     }
 
-	
-	// Update is called once per frame
-	void Update()
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-        if(Input.GetKey(KeyCode.Q) && transform.position.x > minXPosition)
-		{
+        nextFruitIndex = Random.Range(0, 3);
+        nextFruit = fruitsPrefabs[nextFruitIndex].prefab;
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.Q) && transform.position.x > currentMinXPosition)
+        {
             transform.position -= new Vector3(5 * Time.deltaTime, 0, 0);
-		}
-        else if (Input.GetKey(KeyCode.D) && transform.position.x < maxXPosition)
-		{
+        }
+        else if (Input.GetKey(KeyCode.D) && transform.position.x < currentMaxXPosition)
+        {
             transform.position += new Vector3(5 * Time.deltaTime, 0, 0);
         }
 
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-            
-            GameObject newFruit = Instantiate(nextFruit);
-            newFruit.transform.position = transform.position;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
 
-            FruitsManager newFruitScript = newFruit.GetComponent<FruitsManager>();            
+            GameObject newFruit = Instantiate(nextFruit);
+            newFruit.transform.position = guideIcon.position;
+
+            FruitsManager newFruitScript = newFruit.GetComponent<FruitsManager>();
             newFruitScript.fruitIndex = nextFruitIndex;
 
             LoadNextFruit();
-            
-		}
+
+        }
     }
 
     void LoadNextFruit()
     {
         nextFruitIndex = Random.Range(0, 3);
-        nextFruit = fruitsPrefabs[nextFruitIndex];
+        nextFruit = fruitsPrefabs[nextFruitIndex].prefab;
 
-        foreach(Transform child in transform)
-		{
+        foreach (Transform child in transform)
+        {
             Destroy(child.gameObject);
-		}
+        }
 
         GameObject nextFruitPreview = Instantiate(nextFruit, transform);
         nextFruitPreview.GetComponent<Collider2D>().isTrigger = true;
         nextFruitPreview.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         nextFruitPreview.transform.localPosition = Vector3.zero;
+
+        CalculateCloudBounds();
     }
+
+	private void CalculateCloudBounds()
+	{
+        currentMinXPosition = minXPosition + (nextFruitIndex * sideGapForBiggerFruits);
+        currentMaxXPosition = maxXPosition + (nextFruitIndex * sideGapForBiggerFruits);
+
+        if(transform.position.x < currentMinXPosition)
+		{
+            transform.position = new Vector3(currentMinXPosition, defaultYPosition, 0);
+		}
+        else if (transform.position.x > currentMaxXPosition)
+		{
+            transform.position = new Vector3(currentMaxXPosition, defaultYPosition, 0);
+		}
+    }
+
+	public void IncreaseScore(int value)
+    {
+        currentScore += value;
+        scoreText.text = currentScore.ToString();
+    }
+
+}
+
+[System.Serializable]
+public class FruitsList
+{
+    public GameObject prefab;
+    public int points;
 }
