@@ -17,8 +17,10 @@ public class MoveCloud : MonoBehaviour
 
     public FruitsList[] fruitsPrefabs;
 
-    private GameObject nextFruit;
+    public GameObject nextFruit;
     private int nextFruitIndex;
+
+    private bool canDropFruit = true;
 
     public static MoveCloud instance;
 
@@ -36,15 +38,14 @@ public class MoveCloud : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        nextFruitIndex = Random.Range(0, 3);
-        nextFruit = fruitsPrefabs[nextFruitIndex].prefab;
+        LoadNextFruit();
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Q) && transform.position.x > currentMinXPosition)
+        if (Input.GetKey(KeyCode.Q) && transform.position.x > currentMinXPosition) // movements player
         {
             transform.position -= new Vector3(movementSpeed * Time.deltaTime, 0, 0);
         }
@@ -53,28 +54,41 @@ public class MoveCloud : MonoBehaviour
             transform.position += new Vector3(movementSpeed * Time.deltaTime, 0, 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && canDropFruit) // touche pour spawn
         {
+            canDropFruit = false;
+            StartCoroutine(ResetDropTimer()); // Cooldown
 
             GameObject newFruit = Instantiate(nextFruit);
             newFruit.transform.position = guideIcon.position;
 
+            
+
             FruitsManager newFruitScript = newFruit.GetComponent<FruitsManager>();
             newFruitScript.fruitIndex = nextFruitIndex;
-
-            LoadNextFruit();
+            
+            LoadNextFruit();            
 
         }
+
     }
 
-    public void LoadNextFruit()
+    IEnumerator ResetDropTimer()
+	{
+        yield return new WaitForSeconds(1f);
+        canDropFruit = true;
+	}
+
+    public void LoadNextFruit() // Load un prochain fruit dans le player
     {
+        
+
         nextFruitIndex = Random.Range(0, 3);
         nextFruit = fruitsPrefabs[nextFruitIndex].prefab;
-
+            
         foreach (Transform child in transform)
         {
-            Destroy(child.gameObject);
+           Destroy(child.gameObject);
         }
 
         GameObject nextFruitPreview = Instantiate(nextFruit, transform);
@@ -83,6 +97,7 @@ public class MoveCloud : MonoBehaviour
         nextFruitPreview.transform.localPosition = Vector3.zero;
 
         CalculateCloudBounds();
+               
     }
 
 	private void CalculateCloudBounds()
@@ -105,6 +120,7 @@ public class MoveCloud : MonoBehaviour
         currentScore += value;
         scoreText.text = currentScore.ToString();
     }
+         
 
 }
 
