@@ -66,7 +66,7 @@ public class FruitsManager : MonoBehaviour
 
 			float newAlpha = Mathf.Lerp(1f, 0f, elapsed / duration);
 			_spriteRendr.color = new Color(originalColor.r, originalColor.g, originalColor.b, newAlpha);
-
+			transform.position = nextFruit.transform.position;
 			transform.localScale = Vector3.Lerp(originalScale, targetScale, elapsed / duration);
 			elapsed += Time.deltaTime;
 			yield return null;
