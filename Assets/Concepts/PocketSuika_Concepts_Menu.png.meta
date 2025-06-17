@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      PocketSuika_Concepts_Menu_0: 7222724665346986691
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

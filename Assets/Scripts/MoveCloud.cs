@@ -100,7 +100,7 @@ public class MoveCloud : MonoBehaviour
                
     }
 
-	private void CalculateCloudBounds()
+	private void CalculateCloudBounds() // calculate X limits depending on object size <3
 	{
         currentMinXPosition = minXPosition + (nextFruitIndex * sideGapForBiggerFruits);
         currentMaxXPosition = maxXPosition + (nextFruitIndex * sideGapForBiggerFruits);
@@ -119,6 +119,7 @@ public class MoveCloud : MonoBehaviour
     {
         currentScore += value;
         scoreText.text = currentScore.ToString();
+        scoreTextEND.text = currentScore.ToString();
     }
          
 
